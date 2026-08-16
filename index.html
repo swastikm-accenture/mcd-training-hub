@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Training Preferences – McDonald's | Accenture</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #FFC72C; --gold-deep: #e0a800; --red: #DA291C;
+      --dark: #1a1a1a; --mid: #3a3a3a; --surface: #ffffff;
+      --muted: #6b7280; --border: #e5e7eb; --success: #16a34a;
+      --bg: #f9f7f2; --radius: 12px;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); min-height: 100vh; color: var(--dark); }
+    header { background: var(--dark); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 10; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .logo-text span:first-child { font-size: 13px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em; }
+    .logo-text span:last-child { font-size: 11px; color: #9ca3af; font-weight: 400; }
+    .header-badge { background: var(--red); color: white; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
+    .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--mid) 100%); color: white; padding: 2.5rem 2rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFC72C' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
+    .hero-logo { width: 120px; height: 120px; object-fit: contain; margin: 0 auto 1.2rem; display: block; filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4)); }
+    .hero-tag { display: inline-block; background: rgba(255,199,44,0.15); border: 1px solid rgba(255,199,44,0.3); color: var(--gold); font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 700; line-height: 1.25; margin-bottom: 0.6rem; }
+    .hero h1 span { color: var(--gold); }
+    .hero p { color: #9ca3af; font-size: 0.9rem; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+    .deadline-banner { margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 8px; background: rgba(218,41,28,0.15); border: 1px solid rgba(218,41,28,0.35); color: #fca5a5; font-size: 13px; font-weight: 500; padding: 7px 16px; border-radius: 8px; }
+    main { max-width: 680px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+    .card-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+    .card-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.1rem; }
+    label { font-size: 13px; font-weight: 600; color: var(--mid); }
+    label .req { color: var(--red); margin-left: 2px; }
+    label .opt { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 4px; }
+    input[type="text"], input[type="email"], textarea, select { border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 13px; font-size: 14px; font-family: 'Inter', sans-serif; color: var(--dark); background: #fafafa; transition: border-color 0.15s, box-shadow 0.15s; width: 100%; }
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; cursor: pointer; }
+    select:disabled { opacity: 0.5; cursor: not-allowed; }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--gold-deep); box-shadow: 0 0 0 3px rgba(255,199,44,0.18); background: white; }
+    .priority-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .priority-item { display: flex; align-items: center; gap: 12px; }
+    .priority-badge { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; border: 2px solid; }
+    .p1 { background: #fef9c3; border-color: #ca8a04; color: #92400e; }
+    .p2 { background: #f3f4f6; border-color: #9ca3af; color: #374151; }
+    .p3 { background: #fdf2f8; border-color: #c084fc; color: #7c3aed; }
+    .priority-label { font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+    .suggestions { margin-top: 0.5rem; padding: 1rem; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; }
+    .suggestions p { font-size: 12px; font-weight: 600; color: #92400e; margin-bottom: 0.6rem; }
+    .suggestion-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { background: white; border: 1px solid #fbbf24; color: #92400e; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 20px; cursor: pointer; transition: all 0.15s; user-select: none; }
+    .chip:hover { background: var(--gold); border-color: var(--gold-deep); color: var(--dark); }
+    .auto-filled { background: #f0fdf4 !important; border-color: #86efac !important; color: #166534 !important; font-style: italic; }
+    .submit-btn { width: 100%; padding: 14px; background: var(--dark); color: var(--gold); border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em; margin-top: 0.5rem; }
+    .submit-btn:hover { background: var(--red); color: white; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn:disabled { background: #9ca3af; color: white; cursor: not-allowed; transform: none; }
+    #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--dark); color: white; padding: 14px 24px; border-radius: 10px; font-size: 14px; font-weight: 500; box-shadow: 0 8px 30px rgba(0,0,0,0.25); transition: transform 0.3s ease; z-index: 100; max-width: 90vw; text-align: center; }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+    #toast.error { border-left: 4px solid var(--red); }
+    .success-screen { text-align: center; padding: 3rem 1rem; display: none; }
+    .success-icon { width: 72px; height: 72px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 32px; }
+    .success-screen h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .success-screen p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .another-btn { margin-top: 1.5rem; padding: 10px 24px; background: transparent; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; color: var(--mid); transition: all 0.15s; }
+    .another-btn:hover { border-color: var(--dark); color: var(--dark); }
+    footer { text-align: center; padding: 2rem; font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo-text">
+    <span>McDonald's Training Hub</span>
+    <span>Accenture · Training Team</span>
+  </div>
+  <div class="header-badge">Dec 2026</div>
+</header>
+<div class="hero">
+  <img class="hero-logo" src="https://ts.accenture.com/sites/AccentureMcDonalds/Shared%20Documents/TrainingTeam/MCD_Training_Logo_Animated.gif" alt="McDonald's Training Team" />
+  <div class="hero-tag">📋 Training Preference Survey</div>
+  <h1>What should your team <span>learn in December?</span></h1>
+  <p>Share your top 3 training picks for the December cross-training cycle. Your input helps us plan the most impactful 15-day program.</p>
+  <div class="deadline-banner">📅 &nbsp;Submit before end of August &nbsp;·&nbsp; Takes 2 minutes</div>
+</div>
+<main>
+  <div id="formSection">
+    <div class="card">
+      <div class="card-title">Squad Details</div>
+      <div class="field">
+        <label>Squad <span class="req">*</span></label>
+        <select id="squadName" onchange="onSquadChange()">
+          <option value="">— Select your Squad —</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Sub Squad <span class="req">*</span></label>
+          <select id="subSquad" onchange="onSubSquadChange()" disabled>
+            <option value="">— Select Squad first —</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Squad Lead <span class="req">*</span></label>
+          <input type="text" id="leadName" placeholder="Auto-filled from selection" />
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>Work Email <span class="opt">(optional)</span></label>
+        <input type="email" id="email" placeholder="yourname@accenture.com" />
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Training Preferences</div>
+      <div class="priority-list">
+        <div class="priority-item">
+          <div class="priority-badge p1">P1</div>
+          <span class="priority-label">Priority 1</span>
+          <input type="text" id="t1" placeholder="Most important training for your team…" />
+        </div>
+        <div class="priority-item">
+          <div class="priority-badge p2">P2</div>
+          <span class="priority-label">Priority 2</span>
+          <input type="text" id="t2" placeholder="Second choice training…" />
+        </div>
+        <div class="priority-item">
+          <div class="priority-badge p3">P3</div>
+          <span class="priority-label">Priority 3</span>
+          <input type="text" id="t3" placeholder="Third choice training…" />
+        </div>
+      </div>
+      <div class="suggestions" style="margin-top:1rem">
+        <p>💡 Quick picks — tap to fill:</p>
+        <div class="suggestion-chips" id="trainingChips"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Certification Choice</div>
+      <div class="field" style="margin-bottom:0.5rem">
+        <label>Your preferred certification <span class="opt">(optional)</span></label>
+        <input type="text" id="certification" placeholder="Type or pick below…" />
+      </div>
+      <div class="suggestions">
+        <p>💡 Quick picks — tap to fill:</p>
+        <div class="suggestion-chips" id="certChips"></div>
+      </div>
+    </div>
+    <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Training Preferences →</button>
+  </div>
+  <div class="success-screen card" id="successScreen">
+    <div class="success-icon">✅</div>
+    <h2>Preferences Submitted!</h2>
+    <p>Thank you! Your training choices have been recorded.<br>The training team will review all submissions and finalise the December schedule.</p>
+    <button class="another-btn" onclick="resetForm()">Submit for another squad</button>
+  </div>
+</main>
+<footer>McDonald's Training Program · Accenture · Confidential</footer>
+<div id="toast"></div>
+<script>
+// ─── CONFIGURATION ─────────────────────────────────────────────────────────
+// Replace with your SharePoint site URL — no trailing slash
+// Example: "https://accenture.sharepoint.com/sites/McDTrainingHub"
+const SP_SITE = "https://ts.accenture.com/sites/AccentureMcDonalds";
+const SP_LIST = "TrainingPreferences";
+// ───────────────────────────────────────────────────────────────────────────
+
+const SQUAD_DATA = [
+  { squad: "Sales & PMIX", subSquad: "BAU", lead: "Anjali Vaish" },
+  { squad: "Sales & PMIX", subSquad: "Delivery", lead: "Divy" },
+  { squad: "Sales & PMIX", subSquad: "DMB", lead: "Shubhra Pandey" },
+  { squad: "Sales & PMIX", subSquad: "POS", lead: "Sumeet Sharma" },
+  { squad: "Sales & PMIX", subSquad: "MDSC", lead: "Divy" },
+  { squad: "Sales & PMIX", subSquad: "Onboarding", lead: "Amit Wade" },
+  { squad: "Sales & PMIX", subSquad: "Sales Analytics and Reporting - BAU", lead: "Pooja Mehta" },
+  { squad: "Sales & PMIX", subSquad: "SRE", lead: "Indu Agarwal" },
+  { squad: "MOSOT", subSquad: "MOSOT", lead: "Kapil Mohan" },
+  { squad: "Serum", subSquad: "Serum", lead: "Swetha S K" },
+  { squad: "Customer Data Lake", subSquad: "Click Stream Initiative", lead: "Kalaivani" },
+  { squad: "Customer", subSquad: "CCP", lead: "Shruthi ShreeSM" },
+  { squad: "Customer", subSquad: "C360", lead: "Vandana Suram Singh" },
+  { squad: "Customer", subSquad: "CCP PreArch & Arch OS", lead: "Sanjay Mohanty" },
+  { squad: "Customer", subSquad: "E2E COE", lead: "Agilash" },
+  { squad: "Restaurant", subSquad: "Restaurant360", lead: "Shubhra Pandey" },
+  { squad: "Restaurant", subSquad: "RestaurantESG", lead: "abhishek.powar" },
+  { squad: "Restaurant", subSquad: "Restaurant", lead: "abhishek.powar" },
+  { squad: "Supply Chain", subSquad: "Supply Chain", lead: "Raja" },
+  { squad: "Location MDM", subSquad: "Location MDM", lead: "Pranab" },
+  { squad: "Sales Forecasting", subSquad: "Sales Forecasting", lead: "Kapil Mohan" },
+  { squad: "Intelligence Platform", subSquad: "Intelligence Platform", lead: "Dixit Gupta" },
+  { squad: "Runops", subSquad: "Runops", lead: "Kunal Sharma" },
+  { squad: "Audience Engagement", subSquad: "Audience Engagement", lead: "Mrinal Ghosh" },
+  { squad: "PDW", subSquad: "PDW SI", lead: "Satheesh" }
+];
+const TRAINING_PICKS = ["Google Vertex", "Python", "Agentic AI", "Node.js", "DBT", "Reltio", "GCP Architecture"];
+const CERT_PICKS = [
+  "GCP Associate Data Practitioner",
+  "GCP Professional Cloud Architect",
+  "dbt Analytics Engineering Certification",
+  "Reltio Technical Consultant Intermediate Certification"
+];
+
+// ── Populate squad dropdown ──────────────────────────────────
+const uniqueSquads = [...new Set(SQUAD_DATA.map(r => r.squad))];
+const squadSel = document.getElementById('squadName');
+uniqueSquads.forEach(s => {
+  const o = document.createElement('option'); o.value = s; o.textContent = s; squadSel.appendChild(o);
+});
+
+function onSquadChange() {
+  const squad = document.getElementById('squadName').value;
+  const subSel = document.getElementById('subSquad');
+  const leadEl = document.getElementById('leadName');
+  subSel.innerHTML = '<option value="">— Select Sub Squad —</option>';
+  leadEl.value = ''; leadEl.classList.remove('auto-filled');
+  subSel.disabled = !squad;
+  if (!squad) return;
+  const subs = SQUAD_DATA.filter(r => r.squad === squad);
+  subs.forEach(r => {
+    const o = document.createElement('option'); o.value = r.subSquad; o.textContent = r.subSquad; subSel.appendChild(o);
+  });
+  if (subs.length === 1) { subSel.value = subs[0].subSquad; onSubSquadChange(); }
+}
+
+function onSubSquadChange() {
+  const squad = document.getElementById('squadName').value;
+  const subSq = document.getElementById('subSquad').value;
+  const leadEl = document.getElementById('leadName');
+  const match = SQUAD_DATA.find(r => r.squad === squad && r.subSquad === subSq);
+  if (match) { leadEl.value = match.lead; leadEl.classList.add('auto-filled'); }
+  else { leadEl.value = ''; leadEl.classList.remove('auto-filled'); }
+}
+
+// ── Chips ───────────────────────────────────────────────────
+function buildChips(id, items, fn) {
+  const el = document.getElementById(id);
+  items.forEach(t => {
+    const c = document.createElement('span'); c.className = 'chip'; c.textContent = t; c.onclick = () => fn(t); el.appendChild(c);
+  });
+}
+buildChips('trainingChips', TRAINING_PICKS, t => {
+  for (const id of ['t1','t2','t3']) { const el = document.getElementById(id); if (!el.value.trim()) { el.value = t; el.focus(); return; } }
+  showToast('All 3 priority fields are already filled!', 'error');
+});
+buildChips('certChips', CERT_PICKS, t => { document.getElementById('certification').value = t; });
+
+// ── Get SharePoint Request Digest (CSRF token) ───────────────
+async function getDigest() {
+  const r = await fetch(`${SP_SITE}/_api/contextinfo`, {
+    method: 'POST',
+    headers: { 'Accept': 'application/json;odata=verbose' }
+  });
+  const d = await r.json();
+  return d.d.GetContextWebInformation.FormDigestValue;
+}
+
+// ── Submit to SharePoint list directly ──────────────────────
+async function submitForm() {
+  const squadName     = document.getElementById('squadName').value.trim();
+  const subSquad      = document.getElementById('subSquad').value.trim();
+  const leadName      = document.getElementById('leadName').value.trim();
+  const email         = document.getElementById('email').value.trim();
+  const t1            = document.getElementById('t1').value.trim();
+  const t2            = document.getElementById('t2').value.trim();
+  const t3            = document.getElementById('t3').value.trim();
+  const certification = document.getElementById('certification').value.trim();
+
+  if (!squadName)  return showToast('Please select your Squad.', 'error');
+  if (!subSquad)   return showToast('Please select your Sub Squad.', 'error');
+  if (!leadName)   return showToast('Please enter/confirm the Squad Lead name.', 'error');
+  if (!t1)         return showToast('Please enter at least your Priority 1 training.', 'error');
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Submitting…';
+
+  try {
+    // Step 1: get CSRF token (required by SharePoint for writes)
+    const digest = await getDigest();
+
+    // Step 2: write item to SharePoint list
+    const payload = {
+      __metadata: { type: `SP.Data.${SP_LIST}ListItem` },
+      Squad:         squadName,
+      SubSquad:      subSquad,
+      SquadLead:     leadName,
+      Email:         email,
+      Priority1:     t1,
+      Priority2:     t2,
+      Priority3:     t3,
+      Certification: certification
+    };
+
+    const res = await fetch(`${SP_SITE}/_api/web/lists/getbytitle('${SP_LIST}')/items`, {
+      method: 'POST',
+      headers: {
+        'Accept':       'application/json;odata=verbose',
+        'Content-Type': 'application/json;odata=verbose',
+        'X-RequestDigest': digest
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message?.value || `HTTP ${res.status}`);
+    }
+
+    document.getElementById('formSection').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+
+  } catch (e) {
+    console.error(e);
+    showToast('Submission failed: ' + e.message, 'error');
+    btn.disabled = false; btn.textContent = 'Submit Training Preferences →';
+  }
+}
+
+function resetForm() {
+  ['leadName','email','t1','t2','t3','certification'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('squadName').value = '';
+  document.getElementById('subSquad').innerHTML = '<option value="">— Select Squad first —</option>';
+  document.getElementById('subSquad').disabled = true;
+  document.getElementById('leadName').classList.remove('auto-filled');
+  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('submitBtn').textContent = 'Submit Training Preferences →';
+  document.getElementById('formSection').style.display = 'block';
+  document.getElementById('successScreen').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showToast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = `show ${type || ''}`;
+  setTimeout(() => { el.className = ''; }, 4000);
+}
+</script>
+</body>
+</html>
